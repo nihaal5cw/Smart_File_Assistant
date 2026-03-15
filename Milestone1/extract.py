@@ -1,16 +1,11 @@
-import fitz
+import fitz  # PyMuPDF
 
-def extract_text_from_pdf(file_path):
+def extract_text_from_pdf(file):
     text = ""
-    with fitz.open(file_path) as doc:
-        for page in doc:
-            text += page.get_text("text")
+
+    pdf = fitz.open(stream=file.read(), filetype="pdf")
+
+    for page in pdf:
+        text += page.get_text()
+
     return text
-
-
-# This must be at the bottom of the file
-if __name__ == "__main__":
-    file_path = "sample.pdf"
-    text = extract_text_from_pdf(file_path)
-    print("\nExtracted Text (First 1000 characters):\n")
-    print(text[:1000])
