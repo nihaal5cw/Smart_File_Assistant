@@ -1,26 +1,35 @@
-import faiss
-import pickle
+import chromadb
+from sentence_transformers import SentenceTransformer
 
-def create_faiss_index(embeddings):
-    dimension = embeddings.shape[1]
-    index = faiss.IndexFlatL2(dimension)
-    index.add(embeddings)
-    return index
+# load embedding model
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
+# initialize vector database
+client = chromadb.Client()
 
-def save_index(index, path="faiss_index.index"):
-    faiss.write_index(index, path)
+collection = client.create_collection(name="documents")
 
 
-def load_index(path="faiss_index.index"):
-    return faiss.read_index(path)
+def store_chunks(chunks):
+
+    embeddings = model.encode(chunks).tolist()
+
+    ids = [str(i) for i in range(len(chunks))]
+
+    collection.add(
+        documents=chunks,
+        embeddings=embeddings,
+        ids=ids
+    )
 
 
-def save_chunks(chunks, path="chunks.pkl"):
-    with open(path, "wb") as f:
-        pickle.dump(chunks, f)
+def search_chunks(query, n_results=5):
 
+    query_embedding = model.encode(query).tolist()
 
-def load_chunks(path="chunks.pkl"):
-    with open(path, "rb") as f:
-        return pickle.load(f)
+    results = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=n_results
+    )
+
+    return results["documents"][0]
