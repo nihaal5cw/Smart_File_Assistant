@@ -1,18 +1,19 @@
 import chromadb
-from sentence_transformers import SentenceTransformer
+from modules.embeddings import create_embeddings
 
-# load embedding model
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-# initialize vector database
+# initialize chroma client
 client = chromadb.Client()
 
-collection = client.create_collection(name="documents")
+# create collection
+collection = client.get_or_create_collection(name="documents")
 
 
 def store_chunks(chunks):
+    """
+    Store document chunks with embeddings in vector database
+    """
 
-    embeddings = model.encode(chunks).tolist()
+    embeddings = create_embeddings(chunks)
 
     ids = [str(i) for i in range(len(chunks))]
 
@@ -21,15 +22,3 @@ def store_chunks(chunks):
         embeddings=embeddings,
         ids=ids
     )
-
-
-def search_chunks(query, n_results=5):
-
-    query_embedding = model.encode(query).tolist()
-
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=n_results
-    )
-
-    return results["documents"][0]
