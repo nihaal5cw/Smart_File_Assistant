@@ -1,23 +1,20 @@
 from sentence_transformers import SentenceTransformer
-import numpy as np
 
-# Load embedding model once
+# load embedding model
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-def embed_text(text_list):
-    embeddings = model.encode(text_list)
-    return np.array(embeddings).astype("float32")
+
+def create_embeddings(texts):
+    """
+    Convert list of text chunks into vector embeddings
+    """
+    embeddings = model.encode(texts)
+    return embeddings.tolist()
 
 
-# TEST BLOCK (for running separately)
-if __name__ == "__main__":
-    sample_texts = [
-        "Indian agriculture depends on monsoon.",
-        "Agriculture provides employment."
-    ]
-
-    print("Generating embeddings...")
-    vectors = embed_text(sample_texts)
-
-    print("Embedding shape:", vectors.shape)
-    print("First vector:\n", vectors[0])
+def embed_query(query):
+    """
+    Convert user query into embedding
+    """
+    embedding = model.encode(query)
+    return embedding.tolist()
