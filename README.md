@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![AI](https://img.shields.io/badge/AI-RAG%20Pipeline-green)
-![VectorDB](https://img.shields.io/badge/Vector%20Database-FAISS-orange)
+![Vector Database](https://img.shields.io/badge/Vector%20Database-ChromaDB-orange)
 ![Embeddings](https://img.shields.io/badge/Embeddings-SentenceTransformers-red)
 
 Developed as part of Internship / AI Project  
@@ -12,11 +12,11 @@ Author: **Nihal Rao**
 
 # 📖 Project Overview
 
-Smart File Assistant is an AI-powered document analysis system that allows users to ask questions about PDF documents and receive intelligent answers.
+Smart File Assistant is an **AI-powered document analysis system** that allows users to upload PDF documents and ask questions about their content.
 
-The system processes PDF files, extracts text, converts the content into semantic embeddings, and stores them in a vector database. When a user asks a question, the system retrieves the most relevant document sections and uses an AI model to generate an accurate response.
+The system processes PDF files, extracts text, converts the content into **semantic embeddings**, and stores them in a **vector database**. When a user asks a question, the system retrieves the most relevant document sections and uses an **AI language model** to generate an accurate response.
 
-This project demonstrates how **Retrieval-Augmented Generation (RAG)** can be used to build an intelligent document assistant.
+This project demonstrates how **Retrieval-Augmented Generation (RAG)** can be used to build an intelligent document assistant capable of understanding natural language queries.
 
 ---
 
@@ -30,7 +30,7 @@ The goal of this project is to build a system that can:
 - Perform semantic search on documents
 - Generate AI-powered answers based on document content
 
-This enables users to interact with documents using **natural language queries**.
+This enables users to interact with documents using **natural language queries** instead of manually searching through files.
 
 ---
 
@@ -47,7 +47,7 @@ Text Chunking
       ↓
 Embedding Generation (Sentence Transformers)
       ↓
-Vector Database (FAISS)
+Vector Database (ChromaDB)
       ↓
 Semantic Search
       ↓
@@ -63,23 +63,26 @@ AI Generated Answer
 # 🚀 Technologies Used
 
 | Technology | Purpose |
-|-----------|---------|
+|-----------|--------|
 | Python | Main programming language |
+| Streamlit | Web interface |
 | Sentence Transformers | Generate semantic embeddings |
-| FAISS | Vector similarity search |
-| OpenAI API | LLM response generation |
-| PyPDF | PDF text extraction |
-| NumPy | Numerical operations |
+| ChromaDB | Vector similarity search |
+| OpenAI API | AI response generation |
+| PyMuPDF | PDF text extraction |
 | Visual Studio Code | Development environment |
 | GitHub | Version control |
 
-Key libraries used:
+### Key Libraries Used
 
-- sentence-transformers  
-- faiss-cpu  
-- numpy  
-- pypdf  
-- openai  
+```
+streamlit
+sentence-transformers
+chromadb
+pymupdf
+openai
+numpy
+```
 
 ---
 
@@ -87,14 +90,14 @@ Key libraries used:
 
 ## Tasks Completed
 
-- Extracted text from PDF documents
+- Extracted text from uploaded PDF documents
 - Implemented text cleaning and preprocessing
 - Removed unnecessary formatting and characters
 - Structured extracted text for further processing
 
-## Output
+### Output
 
-Clean document text ready for chunking and embedding.
+Clean document text ready for **chunking and embedding generation**.
 
 ---
 
@@ -119,13 +122,13 @@ Chunking ensures the system retrieves **specific relevant sections instead of th
 
 ## Step 2: Embedding Generation
 
-Each text chunk is converted into vector embeddings using the model:
+Each text chunk is converted into **vector embeddings** using the model:
 
 ```
 all-MiniLM-L6-v2
 ```
 
-Embeddings represent the **semantic meaning of text**, allowing the system to match queries even if exact keywords differ.
+Embeddings represent the **semantic meaning of text**, allowing the system to match queries even if keywords differ.
 
 Example:
 
@@ -141,6 +144,8 @@ Matching document content
 system fails to boot
 ```
 
+Even though keywords differ, the **semantic meaning is similar**, allowing accurate retrieval.
+
 ---
 
 # ✅ Milestone 3 – Semantic Search & RAG Pipeline
@@ -151,41 +156,35 @@ Enable intelligent document search and automated answer generation using a **Ret
 
 ---
 
-## Step 1: Vector Database (FAISS)
+## Step 1: Vector Database (ChromaDB)
 
-Embeddings are stored in a FAISS vector database for efficient similarity search.
+Embeddings are stored in a **ChromaDB vector database** for efficient similarity search.
 
-Generated files:
-
-```
-faiss_index.index
-chunks.pkl
-```
-
-| File | Description |
-|-----|-------------|
-| faiss_index.index | Stores vector embeddings |
-| chunks.pkl | Stores document text chunks |
+| Component | Description |
+|----------|-------------|
+| Embeddings | Vector representation of document chunks |
+| Documents | Original text chunks |
+| Metadata | Optional chunk identifiers |
 
 ---
 
 ## Step 2: Semantic Search
 
-User queries are converted into embeddings and compared against the FAISS index.
+User queries are converted into embeddings and compared against stored document embeddings.
 
 Example Query:
 
 ```
-How can I fix system startup issues?
+What are the benefits of agriculture?
 ```
 
 The system retrieves document sections discussing:
 
-- boot failures
-- troubleshooting steps
-- startup errors
+- Economic importance of agriculture
+- Employment generation
+- Agricultural development
 
-Even when **exact keywords are not present**.
+Even when **exact keywords are not present** in the document.
 
 ---
 
@@ -200,13 +199,13 @@ User Query
      ↓
 Query Embedding
      ↓
-Semantic Search (FAISS)
+Semantic Search (ChromaDB)
      ↓
 Retrieve Relevant Chunks
      ↓
 Context Injection
      ↓
-LLM Answer Generation
+AI Answer Generation
 ```
 
 ---
@@ -221,11 +220,11 @@ What is the main topic of this document?
 
 System Process
 
-1. Convert query into embedding  
-2. Search FAISS vector database  
-3. Retrieve most relevant chunks  
-4. Provide context to the AI model  
-5. Generate a response  
+- Convert query into embedding
+- Search ChromaDB vector database
+- Retrieve most relevant chunks
+- Provide context to the AI model
+- Generate a response
 
 Generated Response
 
@@ -252,13 +251,13 @@ python -m venv venv
 
 Activate environment
 
-Windows
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-Mac/Linux
+### Mac/Linux
 
 ```bash
 source venv/bin/activate
@@ -269,10 +268,10 @@ source venv/bin/activate
 ## 3️⃣ Install Dependencies
 
 ```bash
-pip install faiss-cpu
+pip install streamlit
 pip install sentence-transformers
-pip install numpy
-pip install pypdf
+pip install chromadb
+pip install pymupdf
 pip install openai
 ```
 
@@ -280,18 +279,19 @@ pip install openai
 
 # ▶ Running the Project
 
-Run the main program:
+Run the Streamlit application:
 
 ```bash
-python main.py
+streamlit run app.py
 ```
 
 The system will:
 
-1. Load the FAISS vector index  
-2. Accept user queries  
-3. Retrieve relevant document sections  
-4. Generate AI-powered responses  
+- Load the document processing modules
+- Allow users to upload PDF documents
+- Convert document text into embeddings
+- Perform semantic search
+- Generate AI-powered responses
 
 ---
 
@@ -300,18 +300,16 @@ The system will:
 ```
 Smart_File_Assistant
 │
-├── main.py
+├── app.py
 │
-├── extract.py
-├── cleaning.py
-├── chunk.py
-├── embeddings.py
-├── vector_store.py
-├── retriever.py
-├── openai_integration.py
-│
-├── faiss_index.index
-├── chunks.pkl
+├── modules
+│   ├── extract.py
+│   ├── cleaning.py
+│   ├── chunk.py
+│   ├── embeddings.py
+│   ├── vector_store.py
+│   ├── retriever.py
+│   └── openai_integration.py
 │
 ├── sample.pdf
 │
@@ -323,23 +321,23 @@ Smart_File_Assistant
 # 📊 Current Status
 
 | Milestone | Status |
-|----------|--------|
+|-----------|--------|
 | Milestone 1 – Document Processing | ✅ Completed |
 | Milestone 2 – Chunking & Embeddings | ✅ Completed |
 | Milestone 3 – Semantic Search & RAG Pipeline | ✅ Completed |
-| Milestone 4 – Web Interface / Deployment | 🔜 Upcoming |
+| Milestone 4 – Testing & Documentation | 🔜 Upcoming |
 
 ---
 
 # 📌 Future Work
 
-Planned improvements:
+Planned improvements include:
 
-- Web-based document assistant interface
-- Support for multiple documents
-- Advanced document summarization
-- Integration with enterprise document systems
-- Real-time document indexing
+- Support for **multiple document uploads**
+- Document **summarization**
+- **Improved UI features**
+- Integration with enterprise knowledge bases
+- Cloud deployment for public access
 
 ---
 
@@ -355,4 +353,4 @@ The Smart File Assistant functions as an **AI-powered document assistant** capab
 
 ---
 
-⭐ If you found this project useful, consider giving it a star on GitHub!
+⭐ If you found this project useful, consider **starring the repository on GitHub!**
