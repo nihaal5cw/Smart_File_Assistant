@@ -107,8 +107,6 @@ Document
    → Chunk 3
 ```
 
-Chunking allows the system to focus only on relevant portions instead of processing the entire document.
-
 ---
 
 ### Step 2: Retrieval Setup  
@@ -126,27 +124,19 @@ Enable intelligent document search and answer generation using a Retrieval-Augme
 ---
 
 ### Step 1: Chunk Retrieval  
-User queries are compared with stored chunks to identify the most relevant sections.
 
 Example Query:
-
 ```
 What is the importance of agriculture?
 ```
 
-The system retrieves chunks discussing:
-- agricultural benefits  
-- economic contribution  
-- development aspects  
+The system retrieves relevant sections from the document.
 
 ---
 
 ### Step 2: Relevance Check  
 
-Before generating an answer, the system verifies whether the question is related to the document.
-
 If unrelated:
-
 ```
 The question you asked is not related to the uploaded PDF.
 ```
@@ -154,10 +144,6 @@ The question you asked is not related to the uploaded PDF.
 ---
 
 ### Step 3: Retrieval-Augmented Generation (RAG)
-
-The retrieved chunks are passed as context to the AI model.
-
-Pipeline:
 
 ```
 User Query
@@ -173,21 +159,15 @@ AI Answer Generation
 
 ---
 
-### Example Interaction
+# ✅ Milestone 4 – Testing, Debugging & Finalization
 
-User Query:
-
-```
-What is the main topic of this document?
-```
-
-System Process:
-- Retrieve relevant chunks  
-- Validate relevance  
-- Generate response using context  
-
-Generated Response:
-Answer is produced strictly based on document content.
+### Tasks Completed
+- Tested system with both relevant and unrelated queries  
+- Implemented strict filtering for unrelated questions  
+- Fixed module import and environment issues  
+- Resolved UI visibility and styling problems  
+- Improved overall user experience  
+- Finalized project structure and documentation  
 
 ---
 
@@ -232,18 +212,9 @@ pip install numpy
 
 # ▶ Running the Project
 
-Run the Streamlit application:
-
 ```
 streamlit run app.py
 ```
-
-The system will:
-- Allow users to upload PDF documents  
-- Process and chunk document text  
-- Retrieve relevant information  
-- Generate AI-based answers  
-- Restrict unrelated queries  
 
 ---
 
@@ -276,13 +247,11 @@ Smart_File_Assistant
 | Milestone 1 – Document Processing | ✅ Completed |
 | Milestone 2 – Chunking & Retrieval | ✅ Completed |
 | Milestone 3 – RAG Pipeline | ✅ Completed |
-| Milestone 4 – Testing & Documentation | 🔜 Upcoming |
+| Milestone 4 – Testing & Finalization | ✅ Completed |
 
 ---
 
 # 📌 Future Work
-
-Planned improvements include:
 
 - Support for multiple document uploads  
 - Chat history functionality  
