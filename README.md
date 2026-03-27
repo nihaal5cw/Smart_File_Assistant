@@ -1,22 +1,23 @@
-# Smart File Assistant – AI Document Q&A System
+# 📄 Smart File Assistant – AI Document Q&A System
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![AI](https://img.shields.io/badge/AI-RAG%20Pipeline-green)
-![Vector Database](https://img.shields.io/badge/Vector%20Database-ChromaDB-orange)
-![Embeddings](https://img.shields.io/badge/Embeddings-SentenceTransformers-red)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-red)
 
 Developed as part of Internship / AI Project  
-Author: **Nihal Rao**
+Author: **Nihaal Rao**
 
 ---
 
 # 📖 Project Overview
 
-Smart File Assistant is an **AI-powered document analysis system** that allows users to upload PDF documents and ask questions about their content.
+Smart File Assistant is an AI-powered document analysis system that allows users to upload PDF documents and ask questions about their content.
 
-The system processes PDF files, extracts text, converts the content into **semantic embeddings**, and stores them in a **vector database**. When a user asks a question, the system retrieves the most relevant document sections and uses an **AI language model** to generate an accurate response.
+The system processes PDF files, extracts text, organizes the content into structured chunks, and retrieves the most relevant sections based on user queries. These sections are then used by an AI model to generate accurate and context-based responses.
 
-This project demonstrates how **Retrieval-Augmented Generation (RAG)** can be used to build an intelligent document assistant capable of understanding natural language queries.
+The system ensures that answers are strictly based on the uploaded document. If a question is unrelated, it informs the user instead of generating incorrect information.
+
+This project demonstrates how a Retrieval-Augmented Generation (RAG) system can be implemented in a simple and effective way.
 
 ---
 
@@ -24,13 +25,11 @@ This project demonstrates how **Retrieval-Augmented Generation (RAG)** can be us
 
 The goal of this project is to build a system that can:
 
-- Extract and process text from documents
-- Convert document content into semantic embeddings
-- Store embeddings in a vector database for fast retrieval
-- Perform semantic search on documents
-- Generate AI-powered answers based on document content
-
-This enables users to interact with documents using **natural language queries** instead of manually searching through files.
+- Extract and process text from documents  
+- Organize document content into smaller chunks  
+- Retrieve relevant information based on user queries  
+- Generate AI-powered answers using document context  
+- Restrict responses to only document-related queries  
 
 ---
 
@@ -45,17 +44,15 @@ Text Cleaning
       ↓
 Text Chunking
       ↓
-Embedding Generation (Sentence Transformers)
+Chunk Storage
       ↓
-Vector Database (ChromaDB)
+User Query
       ↓
-Semantic Search
+Relevant Chunk Retrieval
       ↓
-Context Retrieval
+Relevance Check
       ↓
-Retrieval-Augmented Generation (RAG)
-      ↓
-AI Generated Answer
+AI Answer Generation
 ```
 
 ---
@@ -63,49 +60,43 @@ AI Generated Answer
 # 🚀 Technologies Used
 
 | Technology | Purpose |
-|-----------|--------|
+|----------|--------|
 | Python | Main programming language |
 | Streamlit | Web interface |
-| Sentence Transformers | Generate semantic embeddings |
-| ChromaDB | Vector similarity search |
 | OpenAI API | AI response generation |
 | PyMuPDF | PDF text extraction |
+| NumPy | Data handling |
 | Visual Studio Code | Development environment |
 | GitHub | Version control |
 
-### Key Libraries Used
+---
 
-```
-streamlit
-sentence-transformers
-chromadb
-pymupdf
-openai
-numpy
-```
+# 📦 Key Libraries Used
+
+- streamlit  
+- pymupdf  
+- openai  
+- numpy  
 
 ---
 
 # ✅ Milestone 1 – Document Processing
 
-## Tasks Completed
-
-- Extracted text from uploaded PDF documents
-- Implemented text cleaning and preprocessing
-- Removed unnecessary formatting and characters
-- Structured extracted text for further processing
+### Tasks Completed
+- Extracted text from uploaded PDF documents  
+- Implemented text cleaning and preprocessing  
+- Removed unnecessary formatting and characters  
+- Structured extracted text for further processing  
 
 ### Output
-
-Clean document text ready for **chunking and embedding generation**.
+Clean and structured document text ready for chunking.
 
 ---
 
-# ✅ Milestone 2 – Text Chunking & Embedding Generation
+# ✅ Milestone 2 – Text Chunking & Retrieval Setup
 
-## Step 1: Text Chunking
-
-Large document text is divided into smaller chunks to improve retrieval accuracy.
+### Step 1: Text Chunking  
+Large document text is divided into smaller chunks to improve retrieval efficiency.
 
 Example:
 
@@ -116,163 +107,125 @@ Document
    → Chunk 3
 ```
 
-Chunking ensures the system retrieves **specific relevant sections instead of the entire document**.
+Chunking allows the system to focus only on relevant portions instead of processing the entire document.
 
 ---
 
-## Step 2: Embedding Generation
-
-Each text chunk is converted into **vector embeddings** using the model:
-
-```
-all-MiniLM-L6-v2
-```
-
-Embeddings represent the **semantic meaning of text**, allowing the system to match queries even if keywords differ.
-
-Example:
-
-User Query
-
-```
-device not starting
-```
-
-Matching document content
-
-```
-system fails to boot
-```
-
-Even though keywords differ, the **semantic meaning is similar**, allowing accurate retrieval.
+### Step 2: Retrieval Setup  
+- Stored processed chunks for later use  
+- Implemented logic to retrieve relevant chunks based on user queries  
+- Selected top matching chunks to form context for answering  
 
 ---
 
 # ✅ Milestone 3 – Semantic Search & RAG Pipeline
 
-## Objective
-
-Enable intelligent document search and automated answer generation using a **Retrieval-Augmented Generation (RAG) pipeline**.
-
----
-
-## Step 1: Vector Database (ChromaDB)
-
-Embeddings are stored in a **ChromaDB vector database** for efficient similarity search.
-
-| Component | Description |
-|----------|-------------|
-| Embeddings | Vector representation of document chunks |
-| Documents | Original text chunks |
-| Metadata | Optional chunk identifiers |
+### Objective  
+Enable intelligent document search and answer generation using a Retrieval-Augmented Generation (RAG) approach.
 
 ---
 
-## Step 2: Semantic Search
-
-User queries are converted into embeddings and compared against stored document embeddings.
+### Step 1: Chunk Retrieval  
+User queries are compared with stored chunks to identify the most relevant sections.
 
 Example Query:
 
 ```
-What are the benefits of agriculture?
+What is the importance of agriculture?
 ```
 
-The system retrieves document sections discussing:
-
-- Economic importance of agriculture
-- Employment generation
-- Agricultural development
-
-Even when **exact keywords are not present** in the document.
+The system retrieves chunks discussing:
+- agricultural benefits  
+- economic contribution  
+- development aspects  
 
 ---
 
-## Step 3: Retrieval-Augmented Generation (RAG)
+### Step 2: Relevance Check  
 
-The retrieved document chunks are passed to the language model as contextual information.
+Before generating an answer, the system verifies whether the question is related to the document.
+
+If unrelated:
+
+```
+The question you asked is not related to the uploaded PDF.
+```
+
+---
+
+### Step 3: Retrieval-Augmented Generation (RAG)
+
+The retrieved chunks are passed as context to the AI model.
 
 Pipeline:
 
 ```
 User Query
      ↓
-Query Embedding
-     ↓
-Semantic Search (ChromaDB)
-     ↓
 Retrieve Relevant Chunks
      ↓
-Context Injection
+Context Preparation
+     ↓
+Relevance Validation
      ↓
 AI Answer Generation
 ```
 
 ---
 
-## Example Interaction
+### Example Interaction
 
-User Query
+User Query:
 
 ```
 What is the main topic of this document?
 ```
 
-System Process
+System Process:
+- Retrieve relevant chunks  
+- Validate relevance  
+- Generate response using context  
 
-- Convert query into embedding
-- Search ChromaDB vector database
-- Retrieve most relevant chunks
-- Provide context to the AI model
-- Generate a response
-
-Generated Response
-
-The system produces an answer based on the **retrieved document content**.
+Generated Response:
+Answer is produced strictly based on document content.
 
 ---
 
 # ⚙️ Installation & Setup
 
-## 1️⃣ Clone the Repository
-
-```bash
+### 1️⃣ Clone the Repository
+```
 git clone https://github.com/yourusername/Smart_File_Assistant.git
 cd Smart_File_Assistant
 ```
 
 ---
 
-## 2️⃣ Create Virtual Environment
-
-```bash
+### 2️⃣ Create Virtual Environment
+```
 python -m venv venv
 ```
 
-Activate environment
+Activate environment:
 
-### Windows
-
-```bash
+Windows
+```
 venv\Scripts\activate
 ```
 
-### Mac/Linux
-
-```bash
+Mac/Linux
+```
 source venv/bin/activate
 ```
 
 ---
 
-## 3️⃣ Install Dependencies
-
-```bash
+### 3️⃣ Install Dependencies
+```
 pip install streamlit
-pip install sentence-transformers
-pip install chromadb
 pip install pymupdf
 pip install openai
+pip install numpy
 ```
 
 ---
@@ -281,17 +234,16 @@ pip install openai
 
 Run the Streamlit application:
 
-```bash
+```
 streamlit run app.py
 ```
 
 The system will:
-
-- Load the document processing modules
-- Allow users to upload PDF documents
-- Convert document text into embeddings
-- Perform semantic search
-- Generate AI-powered responses
+- Allow users to upload PDF documents  
+- Process and chunk document text  
+- Retrieve relevant information  
+- Generate AI-based answers  
+- Restrict unrelated queries  
 
 ---
 
@@ -306,7 +258,6 @@ Smart_File_Assistant
 │   ├── extract.py
 │   ├── cleaning.py
 │   ├── chunk.py
-│   ├── embeddings.py
 │   ├── vector_store.py
 │   ├── retriever.py
 │   └── openai_integration.py
@@ -321,10 +272,10 @@ Smart_File_Assistant
 # 📊 Current Status
 
 | Milestone | Status |
-|-----------|--------|
+|----------|--------|
 | Milestone 1 – Document Processing | ✅ Completed |
-| Milestone 2 – Chunking & Embeddings | ✅ Completed |
-| Milestone 3 – Semantic Search & RAG Pipeline | ✅ Completed |
+| Milestone 2 – Chunking & Retrieval | ✅ Completed |
+| Milestone 3 – RAG Pipeline | ✅ Completed |
 | Milestone 4 – Testing & Documentation | 🔜 Upcoming |
 
 ---
@@ -333,24 +284,24 @@ Smart_File_Assistant
 
 Planned improvements include:
 
-- Support for **multiple document uploads**
-- Document **summarization**
-- **Improved UI features**
-- Integration with enterprise knowledge bases
-- Cloud deployment for public access
+- Support for multiple document uploads  
+- Chat history functionality  
+- Improved retrieval accuracy  
+- Enhanced UI design  
+- Deployment for public access  
 
 ---
 
 # ✅ Final Outcome
 
-The Smart File Assistant functions as an **AI-powered document assistant** capable of:
+The Smart File Assistant functions as an AI-powered document assistant capable of:
 
-- Processing PDF documents
-- Understanding natural language queries
-- Performing semantic search over document content
-- Retrieving relevant information
-- Generating intelligent AI responses
+- Processing PDF documents  
+- Understanding user queries  
+- Retrieving relevant document content  
+- Generating accurate AI-based responses  
+- Preventing unrelated or incorrect answers  
 
 ---
 
-⭐ If you found this project useful, consider **starring the repository on GitHub!**
+⭐ If you found this project useful, consider giving it a star on GitHub!
